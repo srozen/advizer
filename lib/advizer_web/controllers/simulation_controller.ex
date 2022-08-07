@@ -28,8 +28,8 @@ defmodule AdvizerWeb.SimulationController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    simulation = Quotations.get_simulation!(id)
+  def show(conn, %{"id" => uuid}) do
+    simulation = Quotations.get_simulation_by_uuid!(uuid)
     render(conn, "show.html", simulation: simulation)
   end
 

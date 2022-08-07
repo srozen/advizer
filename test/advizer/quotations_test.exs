@@ -59,7 +59,7 @@ defmodule Advizer.QuotationsTest do
     test "get_simulation!/1 returns the simulation with given id" do
       nacebel_fixture()
       simulation = simulation_fixture(%{nacebel_codes: ["12345"]})
-      assert Quotations.get_simulation!(simulation.id) == simulation
+      assert Quotations.get_simulation_by_uuid!(simulation.uuid) == simulation
     end
 
     test "create_simulation/1 with valid data creates a simulation" do

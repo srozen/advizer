@@ -92,7 +92,7 @@ defmodule Advizer.Quotations do
       ** (Ecto.NoResultsError)
 
   """
-  def get_simulation!(id), do: Repo.get!(Simulation, id)
+  def get_simulation_by_uuid!(uuid), do: Repo.get_by!(Simulation, uuid: uuid)
 
   @doc """
   Creates a simulation.
@@ -109,6 +109,7 @@ defmodule Advizer.Quotations do
   def create_simulation(attrs \\ %{}) do
     %Simulation{}
     |> Simulation.changeset(attrs)
+    |> Ecto.Changeset.put_change(:uuid, UUID.uuid4(:hex))
     |> Repo.insert()
   end
 

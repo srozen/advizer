@@ -20,7 +20,7 @@ defmodule Advizer.MixProject do
   def application do
     [
       mod: {Advizer.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :crypto]
     ]
   end
 
@@ -54,7 +54,8 @@ defmodule Advizer.MixProject do
       {:sobelow, "~> 0.8", only: :dev},
       {:csv, "~> 2.4"},
       {:httpoison, "~> 1.8.1"},
-      {:recase, "~> 0.7.0"}
+      {:recase, "~> 0.7.0"},
+      {:uuid, "~> 1.1"}
     ]
   end
 

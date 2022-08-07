@@ -5,6 +5,7 @@ defmodule Advizer.Quotations.Simulation do
   alias Advizer.Quotations
 
   schema "simulations" do
+    field :uuid, :string
     field :annual_revenue, :integer
     field :enterprise_number, :string
     field :legal_name, :string
