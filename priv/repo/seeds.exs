@@ -11,7 +11,17 @@
 # and so on) as they will fail if something goes wrong.
 
 require Logger
-alias Advizer.Quotations
+alias Advizer.{Quotations}
+
+# Seeds Profession Advise-base
+{:ok, %{id: profession_id}} =
+  %{
+    name: "doctor",
+    coverage_ceiling_formula: :large,
+    deductible_formula: :small,
+    covers: [:legal_expenses]
+  }
+  |> Quotations.create_profession()
 
 # Seeds Nacebel Information
 "nacebel_2008.csv"
@@ -26,8 +36,14 @@ alias Advizer.Quotations
 |> Enum.each(fn line ->
   case line do
     # this is an intermediate header in Nacebel CSV
-    {:ok, %{code: "", parent_code: ""} = _entry} -> :ok
-    {:ok, entry} -> Quotations.upsert_nacebel_code(entry)
-    {:error, error} -> Logger.error(error)
+    {:ok, %{code: "", parent_code: ""} = _entry} ->
+      :ok
+
+    {:ok, entry} ->
+      Map.put(entry, :profession_id, profession_id)
+      |> Quotations.upsert_nacebel()
+
+    {:error, error} ->
+      Logger.error(error)
   end
 end)

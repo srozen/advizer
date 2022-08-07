@@ -37,6 +37,13 @@
     <%= @simulation.coverage_ceiling_formula %>
   </li>
 
+    <li>
+    <strong>Covers Advised:</strong>
+    <%= Enum.map(@simulation.covers_advice, fn elem -> %>
+      <%= elem %>
+    <% end) %>
+  </li>
+
 </ul>
 
 <span><%= link "Back", to: Routes.simulation_path(@conn, :new) %></span>

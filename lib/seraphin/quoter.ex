@@ -24,7 +24,6 @@ defmodule Seraphin.Quoter do
     {:ok, results} = Jason.decode(body)
 
     results
-    |> IO.inspect()
   end
 
   def decode_response({:error, error}) do

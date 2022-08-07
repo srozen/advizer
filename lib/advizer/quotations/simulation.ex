@@ -3,6 +3,7 @@ defmodule Advizer.Quotations.Simulation do
   import Ecto.Changeset
 
   alias Advizer.Quotations
+  alias Advizer.Quotations.Profession
 
   schema "simulations" do
     field :uuid, :string
@@ -13,6 +14,7 @@ defmodule Advizer.Quotations.Simulation do
     field :nacebel_codes, {:array, :string}
     field :deductible_formula, Ecto.Enum, values: [:small, :medium, :large], default: :medium
     field :coverage_ceiling_formula, Ecto.Enum, values: [:small, :large], default: :large
+    field :covers_advice, {:array, Ecto.Enum}, values: Ecto.Enum.values(Profession, :covers)
 
     timestamps()
   end

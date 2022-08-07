@@ -10,6 +10,7 @@ defmodule Advizer.Quotations.Nacebel do
     field :label_nl, :string
     field :level_number, :string
     field :parent_code, :string
+    belongs_to :profession, Advizer.Quotations.Profession
 
     timestamps()
   end
@@ -24,7 +25,8 @@ defmodule Advizer.Quotations.Nacebel do
       :label_nl,
       :label_fr,
       :label_de,
-      :label_en
+      :label_en,
+      :profession_id
     ])
   end
 end
