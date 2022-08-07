@@ -17,7 +17,7 @@ defmodule AdvizerWeb.Router do
   scope "/", AdvizerWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", SimulationController, :new
     resources "/simulations", SimulationController, only: [:show, :new, :create]
   end
 
