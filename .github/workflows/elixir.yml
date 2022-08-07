@@ -10,6 +10,9 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
 
+    env:
+      ADVIZER_SERAPHIN_API_KEY: ${{ secrets.ADVIZER_SERAPHIN_API_KEY }}
+
     services:
       postgres:
         image: postgres

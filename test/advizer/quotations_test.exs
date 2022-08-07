@@ -67,7 +67,7 @@ defmodule Advizer.QuotationsTest do
 
       valid_attrs = %{
         annual_revenue: 42,
-        enterprise_number: "some enterprise_number",
+        enterprise_number: "0123456789",
         legal_name: "some legal_name",
         nacebel_codes: ["12345"],
         natural_person: true
@@ -75,7 +75,7 @@ defmodule Advizer.QuotationsTest do
 
       assert {:ok, %Simulation{} = simulation} = Quotations.create_simulation(valid_attrs)
       assert simulation.annual_revenue == 42
-      assert simulation.enterprise_number == "some enterprise_number"
+      assert simulation.enterprise_number == "0123456789"
       assert simulation.legal_name == "some legal_name"
       assert simulation.nacebel_codes == ["12345"]
       assert simulation.natural_person == true

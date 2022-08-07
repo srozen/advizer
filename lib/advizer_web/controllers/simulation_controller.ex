@@ -17,6 +17,8 @@ defmodule AdvizerWeb.SimulationController do
 
     case Quotations.create_simulation(simulation_params) do
       {:ok, simulation} ->
+        Seraphin.Quoter.send_request(simulation)
+
         conn
         |> put_flash(:info, "Simulation created successfully.")
         |> redirect(to: Routes.simulation_path(conn, :show, simulation))

@@ -3,7 +3,7 @@ defmodule AdvizerWeb.SimulationControllerTest do
 
   @create_attrs %{
     annual_revenue: 42,
-    enterprise_number: "some enterprise_number",
+    enterprise_number: "0123456789",
     legal_name: "some legal_name",
     nacebel_codes: "12345",
     natural_person: true

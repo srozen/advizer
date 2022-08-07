@@ -32,6 +32,7 @@ defmodule Advizer.Quotations.Simulation do
       :legal_name,
       :natural_person
     ])
+    |> validate_format(:enterprise_number, ~r/^0(\d{9})/)
     |> validate_change(:nacebel_codes, &nonempty_nacebel_codes/2)
     |> validate_change(:nacebel_codes, &existing_nacebel_codes/2)
   end

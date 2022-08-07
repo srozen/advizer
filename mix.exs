@@ -52,7 +52,9 @@ defmodule Advizer.MixProject do
       {:mix_audit, "~> 1.0", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:sobelow, "~> 0.8", only: :dev},
-      {:csv, "~> 2.4"}
+      {:csv, "~> 2.4"},
+      {:httpoison, "~> 1.8.1"},
+      {:recase, "~> 0.7.0"}
     ]
   end
 

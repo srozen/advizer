@@ -111,4 +111,17 @@ defmodule Advizer.Quotations do
     |> Simulation.changeset(attrs)
     |> Repo.insert()
   end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking simulation changes.
+
+  ## Examples
+
+      iex> change_simulation(simulation)
+      %Ecto.Changeset{data: %Simulation{}}
+
+  """
+  def change_simulation(%Simulation{} = simulation, attrs \\ %{}) do
+    Simulation.changeset(simulation, attrs)
+  end
 end
