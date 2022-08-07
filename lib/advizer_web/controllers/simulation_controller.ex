@@ -2,21 +2,22 @@ defmodule AdvizerWeb.SimulationController do
   use AdvizerWeb, :controller
 
   alias Advizer.Quotations
-  alias Advizer.Quotations.Simulation
+  alias Advizer.Quotations.{Simulation, SimulationNotifier}
+  alias Advizer.Accounts.User
 
   def new(conn, _params) do
-    changeset = Quotations.change_simulation(%Simulation{})
+    changeset = User.changeset(%User{simulation: %Simulation{}}, %{})
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"simulation" => %{"nacebel_codes" => nacebel_codes} = simulation_params}) do
-    simulation_params = %{
-      simulation_params
-      | "nacebel_codes" => format_nacebel_codes(nacebel_codes)
-    }
+  def create(conn, %{"user" => user_params}) do
+    case Quotations.create_user_and_simulation(user_params) do
+      {:ok, %{simulation: simulation} = user} ->
+        SimulationNotifier.deliver_simulation_link(
+          user,
+          Routes.simulation_url(conn, :show, simulation)
+        )
 
-    case Quotations.create_simulation(simulation_params) do
-      {:ok, simulation} ->
         conn
         |> put_flash(:info, "Simulation created successfully.")
         |> redirect(to: Routes.simulation_path(conn, :show, simulation))
@@ -30,8 +31,4 @@ defmodule AdvizerWeb.SimulationController do
     simulation = Quotations.get_simulation_by_uuid!(uuid)
     render(conn, "show.html", simulation: simulation)
   end
-
-  defp format_nacebel_codes(""), do: []
-  defp format_nacebel_codes(nil), do: []
-  defp format_nacebel_codes(codes), do: String.split(codes, ",")
 end

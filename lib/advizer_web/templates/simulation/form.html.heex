@@ -5,25 +5,54 @@
     </div>
   <% end %>
 
-  <%= label f, :annual_revenue %>
-  <%= number_input f, :annual_revenue %>
-  <%= error_tag f, :annual_revenue %>
+  <%= label f, :email %>
+  <%= email_input f, :email %>
+  <%= error_tag f, :email %>
 
-  <%= label f, :enterprise_number %>
-  <%= text_input f, :enterprise_number %>
-  <%= error_tag f, :enterprise_number %>
+  <%= label f, :phone_number %>
+  <%= text_input f, :phone_number %>
+  <%= error_tag f, :phone_number %>
 
-  <%= label f, :legal_name %>
-  <%= text_input f, :legal_name %>
-  <%= error_tag f, :legal_name %>
 
-  <%= label f, :natural_person %>
-  <%= checkbox f, :natural_person %>
-  <%= error_tag f, :natural_person %>
+  <%= label f, :address %>
+  <%= text_input f, :address %>
+  <%= error_tag f, :address %>
 
-  <%= label f, :nacebel_codes %>
-  <%= text_input f, :nacebel_codes %>
-  <%= error_tag f, :nacebel_codes %>
+  <%= label f, :first_name %>
+  <%= text_input f, :first_name %>
+  <%= error_tag f, :first_name %>
+
+
+  <%= label f, :last_name %>
+  <%= text_input f, :last_name %>
+  <%= error_tag f, :last_name %>
+
+  <h2>Simulation</h2>
+
+
+  <%= inputs_for f, :simulation, fn s -> %>
+
+    <%= label s, :annual_revenue %>
+    <%= number_input s, :annual_revenue %>
+    <%= error_tag s, :annual_revenue %>
+
+    <%= label s, :enterprise_number %>
+    <%= text_input s, :enterprise_number %>
+    <%= error_tag s, :enterprise_number %>
+
+    <%= label s, :legal_name %>
+    <%= text_input s, :legal_name %>
+    <%= error_tag s, :legal_name %>
+
+    <%= label s, :natural_person %>
+    <%= checkbox s, :natural_person %>
+    <%= error_tag s, :natural_person %>
+
+    <%= label s, :nacebel_codes %>
+    <%= text_input s, :nacebel_codes %>
+    <%= error_tag s, :nacebel_codes %>
+
+  <% end %>
 
   <div>
     <%= submit "Save" %>

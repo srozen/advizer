@@ -26,11 +26,11 @@ defmodule Advizer.QuotationsFixtures do
     {:ok, simulation} =
       attrs
       |> Enum.into(%{
-        annual_revenue: 42,
-        enterprise_number: "0123456789",
-        legal_name: "some legal_name",
-        nacebel_codes: ["12345"],
-        natural_person: true
+        "annual_revenue" => 42,
+        "enterprise_number" => "0123456789",
+        "legal_name" => "some legal_name",
+        "nacebel_codes" => ["12345"],
+        "natural_person" => true
       })
       |> Advizer.Quotations.create_simulation()
 

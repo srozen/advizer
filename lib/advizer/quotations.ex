@@ -7,6 +7,7 @@ defmodule Advizer.Quotations do
   alias Advizer.Repo
 
   alias Advizer.Quotations.{Nacebel, Profession, Simulation}
+  alias Advizer.Accounts.User
 
   @nacebel_code_level "5"
 
@@ -56,8 +57,8 @@ defmodule Advizer.Quotations do
       iex> valid_nacebel_codes(["valid"])
       {:ok, []}
 
-      iex> valid_nacebel_codes(["invalid"])
-      {:error, []]}
+      iex> valid_nacebel_codes(["valid", "invalid"])
+      {:error, ["invalid"]]}
   """
   @spec valid_nacebel_codes(list) :: {:error, [binary()]} | {:ok, []}
   def valid_nacebel_codes(codes) do
@@ -77,40 +78,58 @@ defmodule Advizer.Quotations do
   end
 
   @doc """
-  Gets a single simulation.
+  Gets a single simulation by its UUID.
 
   Raises `Ecto.NoResultsError` if the Simulation does not exist.
 
   ## Examples
 
-      iex> get_simulation!(123)
+      iex> get_simulation_by_uuid!(123)
       %Simulation{}
 
-      iex> get_simulation!(456)
+      iex> get_simulation_by_uuid!(456)
       ** (Ecto.NoResultsError)
 
   """
   def get_simulation_by_uuid!(uuid), do: Repo.get_by!(Simulation, uuid: uuid)
 
+  def create_user_and_simulation(attrs) do
+    %User{}
+    |> User.create_changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def create_simulation(attrs) do
+    %Simulation{}
+    |> setup_simulation_changeset(attrs)
+    |> Repo.insert()
+  end
+
   @doc """
-  Creates a simulation.
+  Creates a simulation changeset from attributes.
 
   ## Examples
 
-      iex> create_simulation(%{field: value})
-      {:ok, %Simulation{}}
-
-      iex> create_simulation(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+      iex> setup_simulation_changeset(%{field: value})
+      {:ok, %Ecto.Changeset{}}
 
   """
-  def create_simulation(attrs \\ %{}) do
-    %Simulation{}
+  def setup_simulation_changeset(simulation, %{"nacebel_codes" => nacebel_codes} = attrs) do
+    attrs = %{
+      attrs
+      | "nacebel_codes" => format_nacebel_codes(nacebel_codes)
+    }
+
+    simulation
     |> Simulation.changeset(attrs)
     |> Ecto.Changeset.put_change(:uuid, UUID.uuid4(:hex))
     |> make_advice()
-    |> Repo.insert()
   end
+
+  defp format_nacebel_codes(""), do: []
+  defp format_nacebel_codes(nil), do: []
+  defp format_nacebel_codes(codes) when is_list(codes), do: codes
+  defp format_nacebel_codes(codes), do: String.split(codes, ",")
 
   defp make_advice(%Ecto.Changeset{valid?: false} = changeset), do: changeset
 

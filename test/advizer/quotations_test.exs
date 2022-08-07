@@ -58,7 +58,7 @@ defmodule Advizer.QuotationsTest do
 
     test "get_simulation!/1 returns the simulation with given id" do
       nacebel_fixture()
-      simulation = simulation_fixture(%{nacebel_codes: ["12345"]})
+      simulation = simulation_fixture()
       assert Quotations.get_simulation_by_uuid!(simulation.uuid) == simulation
     end
 
@@ -66,11 +66,11 @@ defmodule Advizer.QuotationsTest do
       nacebel_fixture()
 
       valid_attrs = %{
-        annual_revenue: 42,
-        enterprise_number: "0123456789",
-        legal_name: "some legal_name",
-        nacebel_codes: ["12345"],
-        natural_person: true
+        "annual_revenue" => 42,
+        "enterprise_number" => "0123456789",
+        "legal_name" => "some legal_name",
+        "nacebel_codes" => ["12345"],
+        "natural_person" => true
       }
 
       assert {:ok, %Simulation{} = simulation} = Quotations.create_simulation(valid_attrs)
@@ -82,7 +82,7 @@ defmodule Advizer.QuotationsTest do
     end
 
     test "create_simulation/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Quotations.create_simulation(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Quotations.create_user_and_simulation(@invalid_attrs)
     end
   end
 end

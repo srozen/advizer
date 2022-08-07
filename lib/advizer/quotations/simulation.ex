@@ -16,6 +16,8 @@ defmodule Advizer.Quotations.Simulation do
     field :coverage_ceiling_formula, Ecto.Enum, values: [:small, :large], default: :large
     field :covers_advice, {:array, Ecto.Enum}, values: Ecto.Enum.values(Profession, :covers)
 
+    belongs_to :user, Advizer.Accounts.User
+
     timestamps()
   end
 

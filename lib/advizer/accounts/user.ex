@@ -7,6 +7,12 @@ defmodule Advizer.Accounts.User do
 
   schema "users" do
     field :email, :string
+    field :phone_number, :string
+    field :address, :string
+    field :first_name, :string
+    field :last_name, :string
+
+    has_one :simulation, Advizer.Quotations.Simulation
 
     timestamps()
   end
@@ -14,7 +20,20 @@ defmodule Advizer.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:email])
+    |> cast(attrs, [:email, :phone_number, :address, :first_name, :last_name])
+    |> cast_assoc(:simulation, required: true, with: &Advizer.Quotations.Simulation.changeset/2)
+    |> validate_required([:phone_number, :address, :first_name, :last_name])
+    |> validate_email()
+  end
+
+  def create_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:email, :phone_number, :address, :first_name, :last_name])
+    |> cast_assoc(:simulation,
+      required: true,
+      with: &Advizer.Quotations.setup_simulation_changeset/2
+    )
+    |> validate_required([:phone_number, :address, :first_name, :last_name])
     |> validate_email()
   end
 
@@ -23,7 +42,5 @@ defmodule Advizer.Accounts.User do
     |> validate_required([:email])
     |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
     |> validate_length(:email, max: 160)
-    |> unsafe_validate_unique(:email, Advizer.Repo)
-    |> unique_constraint(:email)
   end
 end
