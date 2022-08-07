@@ -1,0 +1,42 @@
+<h1>Show Simulation</h1>
+
+<ul>
+
+  <li>
+    <strong>Annual revenue:</strong>
+    <%= @simulation.annual_revenue %>
+  </li>
+
+  <li>
+    <strong>Enterprise number:</strong>
+    <%= @simulation.enterprise_number %>
+  </li>
+
+  <li>
+    <strong>Legal name:</strong>
+    <%= @simulation.legal_name %>
+  </li>
+
+  <li>
+    <strong>Natural person:</strong>
+    <%= @simulation.natural_person %>
+  </li>
+
+  <li>
+    <strong>Nacebel codes:</strong>
+    <%= @simulation.nacebel_codes %>
+  </li>
+
+  <li>
+    <strong>Deductible formula:</strong>
+    <%= @simulation.deductible_formula %>
+  </li>
+
+  <li>
+    <strong>Coverage ceiling formula:</strong>
+    <%= @simulation.coverage_ceiling_formula %>
+  </li>
+
+</ul>
+
+<span><%= link "Back", to: Routes.simulation_path(@conn, :new) %></span>

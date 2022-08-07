@@ -17,4 +17,22 @@ defmodule Advizer.QuotationsFixtures do
 
     nacebel
   end
+
+  @doc """
+  Generate a simulation.
+  """
+  def simulation_fixture(attrs \\ %{}) do
+    {:ok, simulation} =
+      attrs
+      |> Enum.into(%{
+        annual_revenue: 42,
+        enterprise_number: "some enterprise_number",
+        legal_name: "some legal_name",
+        nacebel_codes: [],
+        natural_person: true
+      })
+      |> Advizer.Quotations.create_simulation()
+
+    simulation
+  end
 end

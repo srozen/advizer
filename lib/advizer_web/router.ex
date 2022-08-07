@@ -18,6 +18,7 @@ defmodule AdvizerWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    resources "/simulations", SimulationController, only: [:show, :new, :create]
   end
 
   # Other scopes may use custom stacks.
