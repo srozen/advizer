@@ -10,7 +10,10 @@ defmodule AdvizerWeb.SimulationController do
   end
 
   def create(conn, %{"simulation" => %{"nacebel_codes" => nacebel_codes} = simulation_params}) do
-    simulation_params = %{simulation_params | "nacebel_codes" => format_nacebel_codes(nacebel_codes)}
+    simulation_params = %{
+      simulation_params
+      | "nacebel_codes" => format_nacebel_codes(nacebel_codes)
+    }
 
     case Quotations.create_simulation(simulation_params) do
       {:ok, simulation} ->

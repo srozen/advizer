@@ -25,6 +25,7 @@ defmodule AdvizerWeb.SimulationControllerTest do
 
   describe "create simulation" do
     import Advizer.QuotationsFixtures
+
     test "redirects to show when data is valid", %{conn: conn} do
       nacebel_fixture()
       conn = post(conn, Routes.simulation_path(conn, :create), simulation: @create_attrs)

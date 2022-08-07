@@ -47,7 +47,7 @@ defmodule Advizer.Quotations.Simulation do
     Quotations.valid_nacebel_codes(nacebel_codes)
     |> case do
       {:ok, []} -> []
-      {:error, codes} ->  [nacebel_codes: "#{codes} are not valid level 5 nacebel codes"]
+      {:error, codes} -> [nacebel_codes: "#{codes} are not valid level 5 nacebel codes"]
     end
   end
 end

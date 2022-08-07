@@ -64,6 +64,7 @@ defmodule Advizer.QuotationsTest do
 
     test "create_simulation/1 with valid data creates a simulation" do
       nacebel_fixture()
+
       valid_attrs = %{
         annual_revenue: 42,
         enterprise_number: "some enterprise_number",
