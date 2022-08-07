@@ -79,19 +79,6 @@ defmodule Advizer.Quotations do
   alias Advizer.Quotations.Simulation
 
   @doc """
-  Returns the list of simulations.
-
-  ## Examples
-
-      iex> list_simulations()
-      [%Simulation{}, ...]
-
-  """
-  def list_simulations do
-    Repo.all(Simulation)
-  end
-
-  @doc """
   Gets a single simulation.
 
   Raises `Ecto.NoResultsError` if the Simulation does not exist.
@@ -123,52 +110,5 @@ defmodule Advizer.Quotations do
     %Simulation{}
     |> Simulation.changeset(attrs)
     |> Repo.insert()
-  end
-
-  @doc """
-  Updates a simulation.
-
-  ## Examples
-
-      iex> update_simulation(simulation, %{field: new_value})
-      {:ok, %Simulation{}}
-
-      iex> update_simulation(simulation, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_simulation(%Simulation{} = simulation, attrs) do
-    simulation
-    |> Simulation.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a simulation.
-
-  ## Examples
-
-      iex> delete_simulation(simulation)
-      {:ok, %Simulation{}}
-
-      iex> delete_simulation(simulation)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_simulation(%Simulation{} = simulation) do
-    Repo.delete(simulation)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking simulation changes.
-
-  ## Examples
-
-      iex> change_simulation(simulation)
-      %Ecto.Changeset{data: %Simulation{}}
-
-  """
-  def change_simulation(%Simulation{} = simulation, attrs \\ %{}) do
-    Simulation.changeset(simulation, attrs)
   end
 end
