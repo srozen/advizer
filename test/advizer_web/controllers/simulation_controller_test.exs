@@ -5,13 +5,11 @@ defmodule AdvizerWeb.SimulationControllerTest do
     annual_revenue: 42,
     enterprise_number: "some enterprise_number",
     legal_name: "some legal_name",
-    nacebel_codes: [],
+    nacebel_codes: "12345",
     natural_person: true
   }
   @invalid_attrs %{
     annual_revenue: nil,
-    coverage_ceiling_formula: nil,
-    deductible_formula: nil,
     enterprise_number: nil,
     legal_name: nil,
     nacebel_codes: nil,
@@ -26,7 +24,9 @@ defmodule AdvizerWeb.SimulationControllerTest do
   end
 
   describe "create simulation" do
+    import Advizer.QuotationsFixtures
     test "redirects to show when data is valid", %{conn: conn} do
+      nacebel_fixture()
       conn = post(conn, Routes.simulation_path(conn, :create), simulation: @create_attrs)
 
       assert %{id: id} = redirected_params(conn)

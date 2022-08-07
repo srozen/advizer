@@ -9,7 +9,9 @@ defmodule AdvizerWeb.SimulationController do
     render(conn, "new.html", changeset: changeset)
   end
 
-  def create(conn, %{"simulation" => simulation_params}) do
+  def create(conn, %{"simulation" => %{"nacebel_codes" => nacebel_codes} = simulation_params}) do
+    simulation_params = %{simulation_params | "nacebel_codes" => format_nacebel_codes(nacebel_codes)}
+
     case Quotations.create_simulation(simulation_params) do
       {:ok, simulation} ->
         conn
@@ -25,4 +27,8 @@ defmodule AdvizerWeb.SimulationController do
     simulation = Quotations.get_simulation!(id)
     render(conn, "show.html", simulation: simulation)
   end
+
+  defp format_nacebel_codes(""), do: []
+  defp format_nacebel_codes(nil), do: []
+  defp format_nacebel_codes(codes), do: String.split(codes, ",")
 end

@@ -8,6 +8,8 @@ defmodule Advizer.Quotations do
 
   alias Advizer.Quotations.Nacebel
 
+  @nacebel_code_level "5"
+
   @doc """
   Creates a Nacebel information.
 
@@ -62,6 +64,7 @@ defmodule Advizer.Quotations do
     results =
       Nacebel
       |> where([n], n.code in ^codes)
+      |> where([n], n.level_number == @nacebel_code_level)
       |> select([n], n.code)
       |> Repo.all()
 

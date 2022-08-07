@@ -11,6 +11,7 @@ defmodule Advizer.QuotationsFixtures do
     {:ok, nacebel} =
       attrs
       |> Enum.into(%{
+        level_number: "5",
         code: "12345"
       })
       |> Advizer.Quotations.create_nacebel()
@@ -28,7 +29,7 @@ defmodule Advizer.QuotationsFixtures do
         annual_revenue: 42,
         enterprise_number: "some enterprise_number",
         legal_name: "some legal_name",
-        nacebel_codes: [],
+        nacebel_codes: ["12345"],
         natural_person: true
       })
       |> Advizer.Quotations.create_simulation()

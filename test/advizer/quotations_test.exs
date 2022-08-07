@@ -31,7 +31,7 @@ defmodule Advizer.QuotationsTest do
     end
 
     test "valid_nacebel_codes/1 with valid codes returns a success tuple" do
-      nacebel_fixture()
+      nacebel_fixture(%{level_number: "5"})
       assert {:ok, []} = Quotations.valid_nacebel_codes(["12345"])
     end
 
@@ -57,16 +57,18 @@ defmodule Advizer.QuotationsTest do
     }
 
     test "get_simulation!/1 returns the simulation with given id" do
-      simulation = simulation_fixture()
+      nacebel_fixture()
+      simulation = simulation_fixture(%{nacebel_codes: ["12345"]})
       assert Quotations.get_simulation!(simulation.id) == simulation
     end
 
     test "create_simulation/1 with valid data creates a simulation" do
+      nacebel_fixture()
       valid_attrs = %{
         annual_revenue: 42,
         enterprise_number: "some enterprise_number",
         legal_name: "some legal_name",
-        nacebel_codes: [],
+        nacebel_codes: ["12345"],
         natural_person: true
       }
 
@@ -74,7 +76,7 @@ defmodule Advizer.QuotationsTest do
       assert simulation.annual_revenue == 42
       assert simulation.enterprise_number == "some enterprise_number"
       assert simulation.legal_name == "some legal_name"
-      assert simulation.nacebel_codes == []
+      assert simulation.nacebel_codes == ["12345"]
       assert simulation.natural_person == true
     end
 
