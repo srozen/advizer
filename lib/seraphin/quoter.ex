@@ -1,10 +1,13 @@
 defmodule Seraphin.Quoter do
   require Logger
 
-  @api_key Application.compile_env!(:advizer, :seraphin)[:api_key]
-  @endpoint "https://staging-gtw.seraphin.be/quotes/professional-liability"
+  alias Advizer.Quotations.Simulation
 
-  def send_request(simulation) do
+  @api_key Application.compile_env!(:advizer, :seraphin)[:api_key]
+  @endpoint Application.compile_env!(:advizer, :seraphin)[:endpoint]
+
+  @spec get_quote(%Simulation{}) :: {:error, binary} | {:ok, %{data: %{}}}
+  def get_quote(simulation) do
     payload = Jason.encode!(simulation)
 
     %HTTPoison.Request{
@@ -20,13 +23,14 @@ defmodule Seraphin.Quoter do
     |> decode_response()
   end
 
+  @spec decode_response({:error, any} | {:ok, HTTPoison.Response.t()}) ::
+          {:ok, %{}} | {:error, binary()}
   def decode_response({:ok, %HTTPoison.Response{body: body, status_code: 200}}) do
-    {:ok, results} = Jason.decode(body)
-
-    results
+    Jason.decode(body, keys: fn key -> key |> Recase.to_snake() |> String.to_atom() end)
   end
 
   def decode_response({:error, error}) do
     Logger.error(error)
+    {:error, error}
   end
 end

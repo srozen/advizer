@@ -106,7 +106,8 @@ defmodule Advizer.Quotations do
       {:error, %Ecto.Changeset{}}
 
   """
-  @spec create_user_and_simulation(none() | %{}) :: %User{simulation: %Simulation{}}
+  @spec create_user_and_simulation(none() | %{}) ::
+          {:ok, %User{simulation: %Simulation{}}} | {:error, %Ecto.Changeset{}}
   def create_user_and_simulation(attrs) do
     %User{}
     |> User.create_changeset(attrs)

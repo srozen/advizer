@@ -29,6 +29,14 @@ defmodule AdvizerWeb.SimulationController do
 
   def show(conn, %{"id" => uuid}) do
     simulation = Quotations.get_simulation_by_uuid!(uuid)
-    render(conn, "show.html", simulation: simulation)
+
+    case Seraphin.Quoter.get_quote(simulation) do
+      {:ok, %{data: data} = _quotation} ->
+        assign(conn, :quotation, data)
+
+      {:error, _} ->
+        conn
+    end
+    |> render("show.html", simulation: simulation)
   end
 end
