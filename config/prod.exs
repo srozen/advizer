@@ -59,3 +59,8 @@ config :advizer, AdvizerWeb.Endpoint,
 #       force_ssl: [hsts: true]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
+
+# Seraphin Configuration
+config :advizer, :seraphin,
+  api_key: System.fetch_env!("ADVIZER_SERAPHIN_API_KEY"),
+  endpoint: "https://staging-gtw.seraphin.be/quotes/professional-liability"
