@@ -91,14 +91,41 @@ defmodule Advizer.Quotations do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_simulation_by_uuid!(binary()) :: %Simulation{}
   def get_simulation_by_uuid!(uuid), do: Repo.get_by!(Simulation, uuid: uuid)
 
+  @doc """
+  Creates user infos and Ecto associated simulation.
+
+  ## Examples
+
+      iex> create_user_and_simulation(%{field: value})
+      {:ok, %User{}}
+
+      iex> create_user_and_simulation(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  @spec create_user_and_simulation(none() | %{}) :: %User{simulation: %Simulation{}}
   def create_user_and_simulation(attrs) do
     %User{}
     |> User.create_changeset(attrs)
     |> Repo.insert()
   end
 
+  @doc """
+  Creates a simulation
+
+  ## Examples
+
+      iex> create_user_and_simulation(%{field: value})
+      {:ok, %User{}}
+
+      iex> create_user_and_simulation(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  @spec create_simulation(none() | %{}) :: %Simulation{}
   def create_simulation(attrs) do
     %Simulation{}
     |> setup_simulation_changeset(attrs)
@@ -150,20 +177,6 @@ defmodule Advizer.Quotations do
     |> apply_advice(changeset)
   end
 
-  defp apply_advice(
-         %{
-           covers: covers,
-           deductible_formula: deductible_formula,
-           coverage_ceiling_formula: coverage_formula
-         },
-         changeset
-       ) do
-    changeset
-    |> Ecto.Changeset.put_change(:covers_advice, MapSet.to_list(covers))
-    |> Ecto.Changeset.put_change(:deductible_formula, deductible_formula)
-    |> Ecto.Changeset.put_change(:coverage_ceiling_formula, coverage_formula)
-  end
-
   # Rationale chosen here is to get the most covered possible regarding the given set of Nacebel and associated profession advice.
   defp aggregate_advice(
          %{
@@ -182,6 +195,20 @@ defmodule Advizer.Quotations do
       deductible_formula: highest_formula(deductible_formula, acc_deductible_formula),
       coverage_ceiling_formula: highest_formula(coverage_formula, acc_coverage_formula)
     }
+  end
+
+  defp apply_advice(
+         %{
+           covers: covers,
+           deductible_formula: deductible_formula,
+           coverage_ceiling_formula: coverage_formula
+         },
+         changeset
+       ) do
+    changeset
+    |> Ecto.Changeset.put_change(:covers_advice, MapSet.to_list(covers))
+    |> Ecto.Changeset.put_change(:deductible_formula, deductible_formula)
+    |> Ecto.Changeset.put_change(:coverage_ceiling_formula, coverage_formula)
   end
 
   defp highest_formula(:small, actual), do: actual

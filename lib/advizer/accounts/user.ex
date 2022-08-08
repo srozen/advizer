@@ -5,6 +5,8 @@ defmodule Advizer.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Advizer.Quotations.Simulation
+
   schema "users" do
     field :email, :string
     field :phone_number, :string
@@ -12,7 +14,7 @@ defmodule Advizer.Accounts.User do
     field :first_name, :string
     field :last_name, :string
 
-    has_one :simulation, Advizer.Quotations.Simulation
+    has_one :simulation, Simulation
 
     timestamps()
   end
@@ -21,7 +23,7 @@ defmodule Advizer.Accounts.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:email, :phone_number, :address, :first_name, :last_name])
-    |> cast_assoc(:simulation, required: true, with: &Advizer.Quotations.Simulation.changeset/2)
+    |> cast_assoc(:simulation, required: true, with: &Simulation.changeset/2)
     |> validate_required([:phone_number, :address, :first_name, :last_name])
     |> validate_email()
   end

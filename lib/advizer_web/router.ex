@@ -10,21 +10,12 @@ defmodule AdvizerWeb.Router do
     plug :put_secure_browser_headers, %{"content-security-policy" => "default-src 'self'"}
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
   scope "/", AdvizerWeb do
     pipe_through :browser
 
     get "/", SimulationController, :new
     resources "/simulations", SimulationController, only: [:show, :new, :create]
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", AdvizerWeb do
-  #   pipe_through :api
-  # end
 
   # Enables LiveDashboard only for development
   #
