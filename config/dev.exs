@@ -73,3 +73,8 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Seraphin Configuration
+config :advizer, :seraphin,
+  api_key: System.fetch_env!("ADVIZER_SERAPHIN_API_KEY"),
+  endpoint: "https://staging-gtw.seraphin.be/quotes/professional-liability"

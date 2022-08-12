@@ -1,0 +1,101 @@
+<h1>Simulation</h1>
+
+<ul>
+
+  <li>
+    <strong>Annual revenue:</strong>
+    <%= @simulation.annual_revenue %>
+  </li>
+
+  <li>
+    <strong>Enterprise number:</strong>
+    <%= @simulation.enterprise_number %>
+  </li>
+
+  <li>
+    <strong>Legal name:</strong>
+    <%= @simulation.legal_name %>
+  </li>
+
+  <li>
+    <strong>Natural person:</strong>
+    <%= @simulation.natural_person %>
+  </li>
+
+  <li>
+    <strong>Nacebel codes:</strong>
+    <%= @simulation.nacebel_codes %>
+  </li>
+
+  <li>
+    <strong>Deductible formula:</strong>
+    <%= @simulation.deductible_formula %>
+  </li>
+
+  <li>
+    <strong>Coverage ceiling formula:</strong>
+    <%= @simulation.coverage_ceiling_formula %>
+  </li>
+
+  <li>
+    <strong>Covers Advised:</strong>
+    <%= Enum.map(@simulation.covers_advice, fn elem -> %>
+      <%= elem %>
+    <% end) %>
+  </li>
+
+</ul>
+
+<%= if @quotation do %>
+  <h1>Quotation</h1>
+
+  <ul>
+    <li>
+      <strong>Available:</strong>
+      <%= @quotation.available %>
+    </li>
+
+    <li>
+      <strong>Coverage Ceiling:</strong>
+      <%= @quotation.coverage_ceiling %>
+    </li>
+
+    <li>
+      <strong>Deductible</strong>
+      <%= @quotation.deductible %>
+    </li>
+
+    <li>
+      <strong>Deductible</strong>
+      <ul>
+          <li>
+            <strong>After Delivery</strong>
+            <%= @quotation.gross_premiums.after_delivery %>
+          </li>
+
+          <li>
+            <strong>Entrusted Objects</strong>
+            <%= @quotation.gross_premiums.entrusted_objects %>
+          </li>
+
+          <li>
+            <strong>Legal Expenses</strong>
+            <%= @quotation.gross_premiums.legal_expenses %>
+          </li>
+
+          <li>
+            <strong>Professional Indemnity</strong>
+            <%= @quotation.gross_premiums.professional_indemnity %>
+          </li>
+
+          <li>
+            <strong>Public Liability</strong>
+            <%= @quotation.gross_premiums.public_liability %>
+          </li>
+      </ul>
+    </li>
+  </ul>
+<% end %>
+
+
+<span><%= link "Back to form", to: Routes.simulation_path(@conn, :new) %></span>

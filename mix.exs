@@ -7,7 +7,7 @@ defmodule Advizer.MixProject do
       version: "0.1.0",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:gettext] ++ Mix.compilers(),
+      compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -20,7 +20,7 @@ defmodule Advizer.MixProject do
   def application do
     [
       mod: {Advizer.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :crypto]
     ]
   end
 
@@ -48,7 +48,14 @@ defmodule Advizer.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:mix_audit, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
+      {:sobelow, "~> 0.8", only: :dev},
+      {:csv, "~> 2.4"},
+      {:httpoison, "~> 1.8.1"},
+      {:recase, "~> 0.7.0"},
+      {:uuid, "~> 1.1"}
     ]
   end
 
